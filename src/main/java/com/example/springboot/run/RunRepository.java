@@ -7,14 +7,25 @@ import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class RunRepository {
 
-    private List<Run> runs = new ArrayList<Run>();
+    private List<Run> runs = new ArrayList<>();
 
     List<Run> findAll() {
         return runs;
+    }
+
+    Optional<Run> findById(Integer id) {
+        return runs.stream()
+                .filter(run -> run.id() == id)
+                .findFirst();
+    }
+
+    void create(Run run) {
+        runs.add(run);
     }
 
     @PostConstruct
